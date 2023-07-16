@@ -47,7 +47,7 @@ const deleteComment = async (req, res) =>{
     const comment = await Comment.findOneAndDelete({_id: id})
 
     if (!comment){
-        return res.status(404).json({error: 'No such place'})
+        return res.status(404).json({error: 'No such comment'})
     }
     res.status(200).json(comment)
 }

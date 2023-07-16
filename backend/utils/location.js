@@ -1,5 +1,5 @@
 
-const API_KEY = 'AIzaSyAKR9dkotugQy6kmUYNWbXyG-8PG4qJHcE';
+const API_KEY = '';
 //returns the coordinates wrapped in a promise
 //installed package axios to send request from my node server to another backend
 

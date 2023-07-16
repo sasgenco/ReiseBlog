@@ -3,7 +3,7 @@
 //Using Open Weather API
 
 
-const API_KEY = '403172313e0ca88abbabaa672c7851c4';
+const API_KEY = '';
 
 //const getCoordsForAddress = require('../utils/location')
 //JavaScripts library used for making HTTP requests from a web browser or a Node.js environment.

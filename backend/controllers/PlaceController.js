@@ -2,6 +2,7 @@ const Place = require('../models/PlaceModel')
 const mongoose = require('mongoose')
 const getCoordsForAddress = require('../utils/location')
 const getWeatherForCoordinates = require('../utils/weather')
+const translateText = require('../utils/translation')
 
 // get all places
 const getPlaces = async (req, res) =>{
@@ -13,16 +14,14 @@ const getPlaces = async (req, res) =>{
 // get a single place
 const getPlace = async (req, res) =>{
     const { id } = req.params
-    /*
-            if (!mongoose.Types.ObjectId.isValid(id)){
-                return res.status(404).json({error: 'No such user'})
-            }
-     */
     const place = await Place.findById(id)
     console.log(place)
     if(!place){
         return res.status(404).json({error:'No such place'})
     }
+    const { title, description, address } = place;
+    translateText(title, description, address);
+
     res.status(200).json(place)
 }
 
@@ -31,7 +30,7 @@ const getPlace = async (req, res) =>{
 const createPlace = async(req, res) =>{
 
 //how to get creator??
-    const {title, description, address, userId} = req.body
+    const {title, description, address, image} = req.body
 
     let location;
     try{
@@ -50,16 +49,14 @@ const createPlace = async(req, res) =>{
     try{
         /*
         const user_id = req.user._id;
-        const place= await Place.create({title, description, address, location, temperature,user_id})
+        const place= await Place.create({title, description, address, location, temperature, creator: user})
          */
-        const place = await Place.create({title, description, address, location, temperature, creator: userId})
+        const place = await Place.create({title, description, address, location, temperature, image})
         res.status(200).json(place)
     }catch (error){
         res.status(400).json({error: error.message})
     }
 }
-
-
 // delete a Place
 const deletePlace = async (req, res) =>{
     const { id } = req.params

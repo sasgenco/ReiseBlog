@@ -12,7 +12,7 @@ const commentSchema = new mongoose.Schema({
     },
     post: {
         type: String,
-        required: true
+        //required: true
     },
 
 },{ timestamps: true })

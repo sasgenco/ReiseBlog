@@ -6,8 +6,6 @@ services:
     ports:
       - 4000:4000
     build: ./backend
-# build:
-  #      context: ./backend
 
   mongodb:
     image: mongo

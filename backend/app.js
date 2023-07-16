@@ -6,6 +6,7 @@ const userRoutes = require('./routes/users')
 const placeRoutes = require('./routes/places')
 const commentRoutes = require('./routes/comments')
 const middleware = require('./middlewares/middleware')
+//const translateText = require('./utils/translation')
 
 // express app
 const app = express();
@@ -13,10 +14,22 @@ const app = express();
 // middleware
 app.use(middleware);
 
+//translation route
+const translateText = require('./utils/translation')
+app.post('/api/translation', translateText);
+//midle ware for CORS
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Header', 'Origin,X-Requested-With, Content-Type,Accept,Authorization'
+    );
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST,PATCH, DELETE')
+    next();
+});
 // routes
 app.use('/api/users', userRoutes)
 app.use('/api/places',placeRoutes)
 app.use('/api/comments',commentRoutes)
+
 
 // Database connection
 const mongoIn = 'mongodb://root:example@mongodb:27017/'; // container
